@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Web Civics Databox architecture: control plane vs data plane, opaque resource layout, security invariants and code map.">
+  <meta name="theme-color" content="#1c4066">
+  <title>Architecture | Web Civics Databox tech docs</title>
+  <link rel="canonical" href="https://www.civics.au/tech/architecture/">
+  <link rel="icon" href="../../assets/images/webcivics-mark.jpg" type="image/jpeg">
+  <link rel="stylesheet" href="../../assets/styles/main.css">
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to the main content</a>
+  <header class="site-header">
+    <div class="header-brand-group">
+      <a class="brand" href="../../" aria-label="Web Civics Databox home">
+        <img src="../../assets/images/webcivics-mark.jpg" alt="Web Civics mark">
+        <span>Web Civics Databox</span>
+      </a>
+      <a class="worksite-link" href="https://www.civics.au/in-development.html" target="_blank" rel="noopener noreferrer" title="In development: this site and its contents are being developed and contain errors.">
+        <img src="../../assets/images/worksite.svg" alt="Worksite hazard symbol" class="worksite-img" width="20" height="20">
+        <span class="worksite-badge">IN DEVELOPMENT</span>
+        <span class="worksite-note">Site &amp; contents contain errors</span>
+      </a>
+    </div>
+    <nav class="site-nav" aria-label="Main navigation">
+      <a href="../../">Plain-language guide</a>
+      <a href="../">Tech docs</a>
+      <a href="../capabilities/">Capabilities</a>
+      <a href="../../engines/">Engines</a>
+      <a href="https://github.com/WebCivics/WebCivics-Databox">Source</a>
+    </nav>
+  </header>
+
+  <main id="main-content">
+    <section class="welcome tech-welcome" aria-labelledby="arch-title">
+      <div>
+        <p class="eyebrow">Architecture</p>
+        <h1 id="arch-title">Web Civics Databox architecture.</h1>
+        <p class="lead"><strong>Digital information is defined legally as Intellectual Property.</strong> A Databox translates this principle into software architecture via a relationship-specific Solid exchange point — one organisation program × one person × one opaque box. The Mapping Smithy is the Web Civics control plane; deposits, receipts, and cryptographic evidence protect the shared rights of both parties.</p>
+        <nav class="tech-subnav" aria-label="Tech docs sections">
+          <a href="../">Hub</a>
+          <a href="./" aria-current="page">Architecture</a>
+          <a href="../capabilities/">Capabilities</a>
+          <a href="../provenance/">Provenance</a>
+          <a href="../smithy/">Smithy API</a>
+          <a href="../exchange/">Exchange</a>
+          <a href="../ipms/">IPMS</a>
+          <a href="../ckan/">CKAN bridge</a>
+        </nav>
+      </div>
+      <aside class="welcome-note" aria-label="Authorship">
+        <p class="note-label">Authorship</p>
+        <p>Designed and implemented as Web Civics / Timothy Holborn work, with thanks to the Solid and CSS commons for the open protocol stack this fork continues.</p>
+      </aside>
+    </section>
+
+    <section class="content-section" aria-labelledby="topology-title">
+      <p class="eyebrow">Topology</p>
+      <h2 id="topology-title">Organisation systems meet an independent personal vault.</h2>
+      <pre class="ascii-diagram" aria-label="Databox topology diagram">Organisation systems of record
+            |
+            v
+   Institutional bridge  -->  organisation-hosted Databox  <-->  consumer agent / app
+            |                           |
+            v                           v
+   Human review queue           Independent consumer Pod / vault
+            |
+            v
+   Purpose-bound recipient or service provider</pre>
+      <div class="plane-grid">
+        <article class="plane-card control">
+          <h3>Control plane — Mapping Smithy</h3>
+          <p>Registers Institution Profiles, forges opaque relationship mappings, issues holder-bound connection credentials, and bridges source-system events into Databox deposits.</p>
+          <ul>
+            <li>JSON API at <code>/.databox/smithy</code></li>
+            <li>Authenticated with a control token (≥ 32 bytes)</li>
+            <li>Never uses an ordinary consumer token</li>
+            <li>Keeps raw customer IDs out of data-plane URLs and responses</li>
+          </ul>
+        </article>
+        <article class="plane-card data">
+          <h3>Data plane — Solid resources</h3>
+          <p>Authorised Solid HTTP/LDP operations for deposits, submissions, receipts and evidence. The Databox resource layout, composed authorizer and store integration are Web Civics extensions attached to the retained Solid request path.</p>
+          <ul>
+            <li>Opaque box roots under <code>/boxes/{opaque-box-id}/</code></li>
+            <li>Notify-then-pull delivery to the person’s chosen storage</li>
+            <li>Knowing a URL never grants access</li>
+            <li>Fail-closed when identity, policy, proof or evidence cannot be verified</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="content-section soft-section" aria-labelledby="layout-title">
+      <p class="eyebrow">Resource layout</p>
+      <h2 id="layout-title">Opaque boxes, independent identifiers.</h2>
+      <p class="section-intro">Each Databox root is an opaque box. Identifiers are independently random so volume cannot be inferred by incrementing a sequence, and never contain customer data.</p>
+      <div class="table-wrap">
+        <table class="tech-table">
+          <caption>Typical paths inside a Databox</caption>
+          <thead>
+            <tr><th scope="col">Path</th><th scope="col">Purpose</th></tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row"><code>records/</code></th><td>Organisation → person institutional records</td></tr>
+            <tr><th scope="row"><code>submissions/</code></th><td>Person → organisation explicit disclosures</td></tr>
+            <tr><th scope="row"><code>dispositions/</code></th><td>Review outcomes for corrections and contested records</td></tr>
+            <tr><th scope="row"><code>receipts/</code></th><td>Signed acceptance receipts retainable outside the organisation</td></tr>
+            <tr><th scope="row"><code>record-index/</code></th><td>Index views for authorised listing</td></tr>
+            <tr><th scope="row"><code>disclosure-view/</code> / <code>audit-view/</code></th><td>Governed disclosure and audit surfaces</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="content-section" aria-labelledby="invariants-title">
+      <p class="eyebrow">Security invariants</p>
+      <h2 id="invariants-title">Rules that every implementation must hold.</h2>
+      <div class="audience-grid">
+        <article><h3>One program, one relationship</h3><p>A Databox belongs to one declared organisation program and one represented relationship.</p></article>
+        <article><h3>No identifying paths</h3><p>URLs, logs and storage paths must not contain directly identifying customer information.</p></article>
+        <article><h3>URL ≠ authority</h3><p>Knowing a resource URL never grants access.</p></article>
+        <article><h3>No Pod browsing</h3><p>Organisation credentials cannot authorise browsing of a consumer’s independent Pod.</p></article>
+        <article><h3>Two-copy shared rights (ADR-0017)</h3><p>In bilateral events (sales, dockets), rights are shared. Dual identical copies are deposited into both independent storage locations under separate WAC controllers, bound associatively by exact-byte SHA-256 digests.</p></article>
+        <article><h3>Rights ontology governance (ODRL)</h3><p>Data access and retention are governed by machine-computable W3C ODRL policies defining explicit permissions, duties, prohibitions, and moral provenance.</p></article>
+        <article><h3>Explicit submissions</h3><p>Consumer submissions are deliberate disclosures, not background reads from personal storage.</p></article>
+        <article><h3>No silent overwrite</h3><p>Accepted records are supersede-/tombstone-linked; changes remain auditable.</p></article>
+        <article><h3>Assurance-gated sensitivity</h3><p>Record sensitivity is evaluated against current verified assurance, purpose and policy.</p></article>
+        <article><h3>Solid interoperability</h3><p>The implementation preserves standard Solid HTTP behaviour for compatible agents.</p></article>
+      </div>
+    </section>
+
+    <section class="content-section soft-section" aria-labelledby="code-title">
+      <p class="eyebrow">Code map</p>
+      <h2 id="code-title">Where the extension lives.</h2>
+      <div class="table-wrap">
+        <table class="tech-table">
+          <caption>Primary modules under <code>src/databox/</code></caption>
+          <thead>
+            <tr><th scope="col">Area</th><th scope="col">Module</th></tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row">Control plane / Smithy</th><td><code>smithy/</code> — <code>MappingSmithy</code>, <code>MappingSmithyHttpApi</code></td></tr>
+            <tr><th scope="row">Live CSS integration</th><td><code>integration/</code> — <code>LiveDataboxHttpHandler</code>, <code>CssDataboxStore</code></td></tr>
+            <tr><th scope="row">Profiles &amp; provisioning</th><td><code>profile/</code>, <code>provisioning/</code>, <code>identifiers/</code></td></tr>
+            <tr><th scope="row">Credentials</th><td><code>credential/</code> — VC connection credential, status list, holder key proof</td></tr>
+            <tr><th scope="row">Exchange</th><td><code>bridge/</code>, <code>gateway/</code>, <code>proof/</code></td></tr>
+            <tr><th scope="row">Evidence &amp; receipts</th><td><code>receipt/</code>, <code>evidence/</code>, <code>storage/</code></td></tr>
+            <tr><th scope="row">Policy</th><td><code>odrl/</code>, <code>policy/</code>, <code>compliance/</code></td></tr>
+            <tr><th scope="row">AuthZ &amp; tenancy</th><td><code>authorization/</code>, <code>context/</code>, <code>tenant/</code></td></tr>
+            <tr><th scope="row">IPMS</th><td><code>ipms/</code> — modules, vertical profiles, Oxigraph sync</td></tr>
+            <tr><th scope="row">Personal profile</th><td>Personal vault, hosting/DNS, household governance, safe-exit paths</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout">
+        <h3>Production Hardening &amp; Enterprise Deployment</h3>
+        <p>The Web Civics Databox enforces fail-closed security invariants across all execution paths. While the default single-process developer preset runs with lightweight in-memory and file stores for instant local evaluation, production enterprise and municipal deployments should configure durable SQL or Oxigraph storage backends, external Key Management Services (KMS), write-once-read-many (WORM) audit ledgers, and centralized identity provider integrations.</p>
+      </div>
+    </section>
+
+    <section class="content-section" aria-labelledby="next-title">
+      <p class="eyebrow">Next</p>
+      <h2 id="next-title">Continue into the surfaces.</h2>
+      <div class="button-row">
+        <a class="action-btn" href="../smithy/">Smithy API</a>
+        <a class="text-link" href="../exchange/">Exchange pipeline <span aria-hidden="true">→</span></a>
+        <a class="text-link" href="https://github.com/WebCivics/WebCivics-Databox/blob/main/databox/guide/architecture-and-design.md">Repo architecture guide <span aria-hidden="true">↗</span></a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p><strong>Web Civics Databox</strong> &middot; technical documentation.</p>
+    <p><a href="../">Tech docs hub</a> · <a href="../../">Plain-language guide</a></p>
+  </footer>
+</body>
+</html>

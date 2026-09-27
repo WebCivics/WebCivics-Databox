@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Databox IPMS: 60+ industry modules, vertical profiles, org mobile WASM/PWA apps and operator surfaces.">
+  <meta name="theme-color" content="#1c4066">
+  <title>IPMS | Web Civics Databox tech docs</title>
+  <link rel="canonical" href="https://www.civics.au/tech/ipms/">
+  <link rel="icon" href="../../assets/images/webcivics-mark.jpg" type="image/jpeg">
+  <link rel="stylesheet" href="../../assets/styles/main.css">
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to the main content</a>
+  <header class="site-header">
+    <div class="header-brand-group">
+      <a class="brand" href="../../" aria-label="Web Civics Databox home">
+        <img src="../../assets/images/webcivics-mark.jpg" alt="Web Civics mark">
+        <span>Web Civics Databox</span>
+      </a>
+      <a class="worksite-link" href="https://www.civics.au/in-development.html" target="_blank" rel="noopener noreferrer" title="In development: this site and its contents are being developed and contain errors.">
+        <img src="../../assets/images/worksite.svg" alt="Worksite hazard symbol" class="worksite-img" width="20" height="20">
+        <span class="worksite-badge">IN DEVELOPMENT</span>
+        <span class="worksite-note">Site &amp; contents contain errors</span>
+      </a>
+    </div>
+    <nav class="site-nav" aria-label="Main navigation">
+      <a href="../../">Plain-language guide</a>
+      <a href="../">Tech docs</a>
+      <a href="../capabilities/">Capabilities</a>
+      <a href="../../admin/">Admin demo</a>
+      <a href="https://github.com/WebCivics/WebCivics-Databox">Source</a>
+    </nav>
+  </header>
+
+  <main id="main-content">
+    <section class="welcome tech-welcome" aria-labelledby="ipms-title">
+      <div>
+        <p class="eyebrow">Industry Provisioning &amp; Module System</p>
+        <h1 id="ipms-title">Operational software for small businesses &amp; organisations.</h1>
+        <p class="lead">IPMS provides the missing operational half of the Solid ecosystem. While earlier Solid implementations focused solely on personal pods—leaving businesses with no software to receive or issue records—IPMS equips small businesses, venues, and organisations with 60+ modular applications (point-of-sale, inventory, customer ordering, ticketing, and verifiable receipts) operating natively on linked data. This enables businesses and natural persons to engage in direct, bilateral record exchange under local law.</p>
+        <nav class="tech-subnav" aria-label="Tech docs sections">
+          <a href="../">Hub</a>
+          <a href="../architecture/">Architecture</a>
+          <a href="../capabilities/">Capabilities</a>
+          <a href="../provenance/">Provenance</a>
+          <a href="../smithy/">Smithy API</a>
+          <a href="../exchange/">Exchange</a>
+          <a href="./" aria-current="page">IPMS</a>
+          <a href="../ckan/">CKAN bridge</a>
+        </nav>
+      </div>
+      <aside class="welcome-note" aria-label="Code location">
+        <p class="note-label">In the repo</p>
+        <p>Implementation lives under <code>src/databox/ipms/</code> with deployment guides in <code>databox/deployment/ipms/</code>.</p>
+      </aside>
+    </section>
+
+    <section class="content-section" aria-labelledby="modules-title">
+      <p class="eyebrow">Module catalogue</p>
+      <h2 id="modules-title">Groups shipped with the reference build.</h2>
+      <div class="module-groups">
+        <article>
+          <h3>Commerce &amp; retail</h3>
+          <ul>
+            <li>POS — cart, cash register, customer ordering, table sessions, promotions, tickets, native device contract</li>
+            <li>Menu, catalogue, pricing, discounts, loyalty, barcode, EFTPOS</li>
+            <li>Payments — refunds, splits, subscriptions</li>
+          </ul>
+        </article>
+        <article>
+          <h3>Food &amp; health safety</h3>
+          <ul>
+            <li>Allergy profile — allergen matching, ingredient declarations</li>
+            <li>Concessions, emergency break-glass</li>
+            <li>Consent, delegation, device auth</li>
+          </ul>
+        </article>
+        <article>
+          <h3>Operations &amp; logistics</h3>
+          <ul>
+            <li>Delivery — driver dispatch and management</li>
+            <li>Inventory, bookings, jobs, events, feeds</li>
+            <li>Print shop, quotations</li>
+          </ul>
+        </article>
+        <article>
+          <h3>Governance &amp; identity</h3>
+          <ul>
+            <li>Governance — role bindings, ODRL policy management, resolution</li>
+            <li>Credentials — W3C VC issuance / verification / revocation</li>
+            <li>Access, consumer rights, provenance, reputation, licensing, org network</li>
+          </ul>
+        </article>
+        <article>
+          <h3>Infrastructure &amp; integration</h3>
+          <ul>
+            <li>Hosting — Cloudflare DNS / tunnel</li>
+            <li>Integration — ODBC / LDAP connectors, R2RML</li>
+            <li>Backups, accounting bridge, tax engine, notifications, i18n, a11y, theming</li>
+          </ul>
+        </article>
+        <article>
+          <h3>Web &amp; social</h3>
+          <ul>
+            <li>Website — customer display, public feed, SEO, sitemap / robots</li>
+            <li>Social, business, HR, household, records, receipt, ticketing, MCP</li>
+            <li>Community additions — supply-chain custody, WoT telemetry, ledger modules</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="content-section soft-section" aria-labelledby="apps-title">
+      <p class="eyebrow">Org mobile apps</p>
+      <h2 id="apps-title">One WASM/PWA container, many profiles.</h2>
+      <p class="section-intro">Instead of separate apps per purpose, a unified container fetches identity, features and permissions from IPMS at runtime based on the organisation’s vertical profile.</p>
+      <div class="audience-grid">
+        <article><h3>Waiter</h3><p>Table-side order management — typically local-only network scope.</p></article>
+        <article><h3>Driver</h3><p>Delivery driver management — remote-capable where the profile allows.</p></article>
+        <article><h3>Tradie</h3><p>Trade / field-service profile for local job workflows.</p></article>
+        <article><h3>Print</h3><p>Print-shop operations bound to device and organisation scope.</p></article>
+        <article><h3>Scorekeeper</h3><p>Event scorekeeping with local-only enforcement via service worker.</p></article>
+        <article><h3>Referee</h3><p>Referee management for sports events under the same container model.</p></article>
+      </div>
+      <div class="callout">
+        <h3>Per-install VC licensing</h3>
+        <p>Each app install receives a Verifiable Credential licence binding app, organisation, device, scope and permissions. Network scope (local-only vs remote-capable) is enforced in the service worker.</p>
+      </div>
+    </section>
+
+    <section class="content-section" aria-labelledby="native-title">
+      <p class="eyebrow">Native edge</p>
+      <h2 id="native-title">Rust components for hardware and connectors.</h2>
+      <div class="two-column">
+        <div class="plain-box">
+          <h3>POS &amp; desktop</h3>
+          <ul class="check-list">
+            <li>POS Edge — ESC/POS thermal printer, cash drawer, QR, local HTTP, IPC</li>
+            <li>POS Edge Proxy</li>
+            <li>Tray Supervisor for desktop lifecycle</li>
+            <li>Cross-platform installer with checksum-verified Node runtime</li>
+          </ul>
+        </div>
+        <div class="plain-box">
+          <h3>Integration</h3>
+          <ul class="check-list">
+            <li>Connector Sidecar — ODBC / LDAP bridging with RDF mapping</li>
+            <li>Hardware abstraction for printers, drawers and scanners</li>
+            <li>Optional Oxigraph-backed IPMS hydration and sync</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section soft-section" aria-labelledby="next-title">
+      <p class="eyebrow">Related</p>
+      <h2 id="next-title">Operate it or browse industry scenarios.</h2>
+      <div class="button-row">
+        <a class="action-btn" href="../../admin/">Open admin demo</a>
+        <a class="text-link" href="../#industry">Industry applications <span aria-hidden="true">→</span></a>
+        <a class="text-link" href="https://github.com/WebCivics/WebCivics-Databox/tree/main/src/databox/ipms">IPMS source <span aria-hidden="true">↗</span></a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p><strong>Web Civics Databox</strong> &middot; technical documentation.</p>
+    <p><a href="../">Tech docs hub</a> · <a href="../../">Plain-language guide</a></p>
+  </footer>
+</body>
+</html>

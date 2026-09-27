@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Mapping Smithy control-plane API: programs, mappings and source-events for Web Civics Databox.">
+  <meta name="theme-color" content="#1c4066">
+  <title>Smithy API | Web Civics Databox tech docs</title>
+  <link rel="canonical" href="https://www.civics.au/tech/smithy/">
+  <link rel="icon" href="../../assets/images/webcivics-mark.jpg" type="image/jpeg">
+  <link rel="stylesheet" href="../../assets/styles/main.css">
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to the main content</a>
+  <header class="site-header">
+    <div class="header-brand-group">
+      <a class="brand" href="../../" aria-label="Web Civics Databox home">
+        <img src="../../assets/images/webcivics-mark.jpg" alt="Web Civics mark">
+        <span>Web Civics Databox</span>
+      </a>
+      <a class="worksite-link" href="https://www.civics.au/in-development.html" target="_blank" rel="noopener noreferrer" title="In development: this site and its contents are being developed and contain errors.">
+        <img src="../../assets/images/worksite.svg" alt="Worksite hazard symbol" class="worksite-img" width="20" height="20">
+        <span class="worksite-badge">IN DEVELOPMENT</span>
+        <span class="worksite-note">Site &amp; contents contain errors</span>
+      </a>
+    </div>
+    <nav class="site-nav" aria-label="Main navigation">
+      <a href="../../">Plain-language guide</a>
+      <a href="../">Tech docs</a>
+      <a href="../capabilities/">Capabilities</a>
+      <a href="../provenance/">Provenance</a>
+      <a href="../../smithy/">Demo</a>
+      <a href="https://github.com/WebCivics/WebCivics-Databox">Source</a>
+    </nav>
+  </header>
+
+  <main id="main-content">
+    <section class="welcome tech-welcome" aria-labelledby="smithy-title">
+      <div>
+        <p class="eyebrow">Control plane</p>
+        <h1 id="smithy-title">Mapping Smithy HTTP API.</h1>
+        <p class="lead">A thin JSON control plane, intentionally separate from the public Databox data plane. In the live preset it is mounted at <code>/.databox/smithy</code>.</p>
+        <nav class="tech-subnav" aria-label="Tech docs sections">
+          <a href="../">Hub</a>
+          <a href="../architecture/">Architecture</a>
+          <a href="../capabilities/">Capabilities</a>
+          <a href="../provenance/">Provenance</a>
+          <a href="./" aria-current="page">Smithy API</a>
+          <a href="../exchange/">Exchange</a>
+          <a href="../ipms/">IPMS</a>
+          <a href="../ckan/">CKAN bridge</a>
+        </nav>
+      </div>
+      <aside class="welcome-note" aria-label="Rename note">
+        <p class="note-label">Rename</p>
+        <p>Mapping Forge was renamed Mapping Smithy across core, HTTP APIs and the admin UI. Legacy <code>/forge</code> paths redirect to <code>/smithy</code>.</p>
+      </aside>
+    </section>
+
+    <section class="content-section" aria-labelledby="auth-title">
+      <p class="eyebrow">Base URL &amp; authentication</p>
+      <h2 id="auth-title">Control-token boundary.</h2>
+      <div class="table-wrap">
+        <table class="tech-table">
+          <caption>Live preset defaults</caption>
+          <thead><tr><th scope="col">Item</th><th scope="col">Value</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Base</th><td><code>http://localhost:3000/.databox/smithy</code></td></tr>
+            <tr><th scope="row">Auth</th><td><code>Authorization: Bearer &lt;control-token&gt;</code> — token must be ≥ 32 bytes; comparison is constant-time</td></tr>
+            <tr><th scope="row">Missing/invalid</th><td><code>401</code> with <code>WWW-Authenticate: Bearer realm="databox-control"</code></td></tr>
+            <tr><th scope="row">Body limit</th><td>1&nbsp;MB; bodies must be valid JSON</td></tr>
+            <tr><th scope="row">Caching</th><td><code>Cache-Control: no-store</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="content-section soft-section" aria-labelledby="endpoints-title">
+      <p class="eyebrow">Endpoints</p>
+      <h2 id="endpoints-title">Programs, mappings, source-events.</h2>
+      <div class="table-wrap">
+        <table class="tech-table">
+          <caption>Smithy routes</caption>
+          <thead>
+            <tr><th scope="col">Method</th><th scope="col">Path</th><th scope="col">Success</th><th scope="col">Purpose</th></tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row"><code>GET</code></th><td><code>/programs</code></td><td><code>200</code></td><td>List registered program summaries</td></tr>
+            <tr><th scope="row"><code>POST</code></th><td><code>/programs</code></td><td><code>201</code></td><td>Register and validate an Institution Profile</td></tr>
+            <tr><th scope="row"><code>POST</code></th><td><code>/mappings</code></td><td><code>201</code></td><td>Provision an opaque relationship and issue a connection credential</td></tr>
+            <tr><th scope="row"><code>POST</code></th><td><code>/source-events</code></td><td><code>202</code></td><td>Transform and commit an institutional event; issue a receipt</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="audience-grid" style="margin-top:2.5rem;">
+        <article>
+          <h3>POST /programs</h3>
+          <p>Accepts an Institution Profile plus <code>programUri</code> and <code>databoxBaseUrl</code> (HTTPS; HTTP only for loopback). Returns a summary with profile id/version, record and submission classes — no customer data.</p>
+        </article>
+        <article>
+          <h3>POST /mappings</h3>
+          <p>Takes control-plane PII (<code>customerId</code>, namespace, pairwise WebID, holder JWK). Returns opaque provisioning plus a signed connection credential. Raw <code>customerId</code> is absent from the result.</p>
+        </article>
+        <article>
+          <h3>POST /source-events</h3>
+          <p>Deposits a source-system event as a record. <code>recordClass</code>, <code>legalBasis</code> and <code>purpose</code> must be declared in the profile. Replayed <code>sourceEventId</code> values are rejected.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="content-section" aria-labelledby="run-title">
+      <p class="eyebrow">Local live preset</p>
+      <h2 id="run-title">Start the demonstration server.</h2>
+      <pre class="ascii-diagram" aria-label="PowerShell start commands">npm install
+npm run build
+
+$token = [Convert]::ToHexString(
+  [Security.Cryptography.RandomNumberGenerator]::GetBytes(32))
+npm.cmd run start:databox-live -- `
+  --databoxControlToken $token `
+  --baseUrl http://localhost:3000/ `
+  --port 3000</pre>
+      <div class="callout">
+        <h3>Invariants enforced here</h3>
+        <p>PII stays in the control plane. The raw customer ID never enters a response body, resource URL or receipt. Fail-closed validation applies to profiles, classes, bases and purposes. Any other route returns <code>404 {"error":"not-found"}</code>.</p>
+      </div>
+    </section>
+
+    <section class="content-section soft-section" aria-labelledby="next-title">
+      <p class="eyebrow">Related</p>
+      <h2 id="next-title">Try the UI or read the exchange path.</h2>
+      <div class="button-row">
+        <a class="action-btn" href="../../smithy/">Plain-language Smithy demo</a>
+        <a class="text-link" href="../../admin/">Admin console <span aria-hidden="true">→</span></a>
+        <a class="text-link" href="../exchange/">Exchange pipeline <span aria-hidden="true">→</span></a>
+        <a class="text-link" href="https://github.com/WebCivics/WebCivics-Databox/blob/main/databox/guide/smithy-api.md">Repo Smithy guide <span aria-hidden="true">↗</span></a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p><strong>Web Civics Databox</strong> &middot; technical documentation.</p>
+    <p><a href="../">Tech docs hub</a> · <a href="../../">Plain-language guide</a></p>
+  </footer>
+</body>
+</html>

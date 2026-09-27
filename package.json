@@ -54,6 +54,7 @@
     "secret-scan": "node scripts/secret-scan.js",
     "ops:scan": "node scripts/secret-scan.js && npm audit --omit=dev",
     "mkdocs": "npm run mkdocs:docker || npm run mkdocs:pip",
+    "docs:serve": "python -m http.server 8085 --directory docs",
     "mkdocs:docker": "docker run --rm -it -p 8000:8000 -v ${PWD}/documentation:/docs squidfunk/mkdocs-material",
     "mkdocs:pip": "pip install mkdocs mkdocs-material && cd documentation && mkdocs serve",
     "docker": "npm run docker:setup && npm run docker:start",

@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Technical documentation for Web Civics Databox: architecture, capabilities, Mapping Smithy API, bilateral exchange, IPMS suite, CKAN bridge, and query engines.">
+  <meta name="theme-color" content="#1c4066">
+  <title>Technical Documentation | Web Civics Databox</title>
+  <link rel="canonical" href="https://www.civics.au/tech/">
+  <link rel="icon" href="../assets/images/webcivics-mark.jpg" type="image/jpeg">
+  <link rel="stylesheet" href="../assets/styles/main.css">
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to the main content</a>
+  <header class="site-header">
+    <div class="header-brand-group">
+      <a class="brand" href="../" aria-label="Web Civics Databox home">
+        <img src="../assets/images/webcivics-mark.jpg" alt="Web Civics mark">
+        <span>Web Civics Databox</span>
+      </a>
+      <a class="worksite-link" href="https://www.civics.au/in-development.html" target="_blank" rel="noopener noreferrer" title="In development: this site and its contents are being developed and contain errors.">
+        <img src="../assets/images/worksite.svg" alt="Worksite hazard symbol" class="worksite-img" width="20" height="20">
+        <span class="worksite-badge">IN DEVELOPMENT</span>
+        <span class="worksite-note">Site &amp; contents contain errors</span>
+      </a>
+    </div>
+    <nav class="site-nav" aria-label="Main navigation">
+      <a href="../">Home</a>
+      <a href="./" aria-current="page">Tech Docs</a>
+      <a href="./architecture/">Architecture</a>
+      <a href="./capabilities/">Capabilities</a>
+      <a href="./provenance/">Provenance</a>
+      <a href="../engines/">Engines</a>
+      <a href="../admin/">Admin Demo</a>
+      <a href="https://github.com/WebCivics/WebCivics-Databox">Source</a>
+    </nav>
+  </header>
+
+  <main id="main-content">
+    <section class="welcome tech-welcome" aria-labelledby="tech-title">
+      <div>
+        <p class="eyebrow">Technical Architecture &amp; Reference</p>
+        <h1 id="tech-title">Web Civics Databox: Open Protocols &amp; Software.</h1>
+        <p class="lead"><strong>Digital information is defined legally as Intellectual Property.</strong> Web Civics Databox is an open-standards, relationship-governed Read-Write Web server built on Node&nbsp;≥&nbsp;24. It combines W3C Solid Linked Data protocols with the Mapping Smithy control plane, purpose-bound Relationship Databoxes, cryptographically signed receipts, ODRL policy governance, and the modular IPMS business suite.</p>
+        <div class="button-row">
+          <a class="action-btn" href="./capabilities/">Browse Capabilities</a>
+          <a class="text-link" href="./architecture/">Read Architecture Blueprint <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+      <aside class="welcome-note" aria-label="Authorship & Heritage">
+        <p class="note-label">Authorship &amp; Heritage</p>
+        <p>Architected by <strong>Timothy Charles Holborn</strong> / Web Civics, advancing 25 years of human-centric data architectures, continuing and extending open W3C Solid and Community Solid Server (CSS) standards.</p>
+      </aside>
+    </section>
+
+    <section class="content-section" aria-labelledby="substance-title">
+      <p class="eyebrow">System Innovations</p>
+      <h2 id="substance-title">Enterprise &amp; civic data exchange meets natural person stewardship.</h2>
+      <p class="section-intro">Web Civics Databox bridges a foundational gap in the decentralized web. While earlier and foundational versions of Solid focused almost exclusively on generic personal storage pods without operational business software, Web Civics Databox advances the software stack to provide complete operational infrastructure for small businesses, community organisations, and civic bodies. This breakthrough solves the missing counterparty problem, enabling the bilateral exchange of verified records—such as digital receipts, orders, and personal credentials—between living human beings and local organisations.</p>
+      <div class="audience-grid">
+        <article>
+          <h3>Relationship Databox Model</h3>
+          <p>Strict purpose-bound isolation: <em>1 Natural Person × 1 Program × 1 Opaque Container</em>. Organisations interact through dedicated bilateral boundaries without gaining browsing rights to the person's private vault.</p>
+        </article>
+        <article>
+          <h3>Mapping Smithy Control Plane</h3>
+          <p>Declarative JSON API (<code>/.databox/smithy</code>) managing Institution Profiles, schema transformations, and event-driven data ingestion from external enterprise databases.</p>
+        </article>
+        <article>
+          <h3>Verifiable Exchange &amp; Receipts</h3>
+          <p>Exact-byte commit pipeline with SHA-256 payload integrity, signed cryptographic receipts, and immutable append-only / supersede / tombstone audit records.</p>
+        </article>
+        <article>
+          <h3>IPMS Operational Suite</h3>
+          <p>60+ modular business applications advancing Solid to the commercial edge: POS, inventory, hospitality, logistics, facilities, and digital receipt issuance operating natively on linked data.</p>
+        </article>
+        <article>
+          <h3>Personal Vaults &amp; Guardianship Care</h3>
+          <p>Personal data vaults supporting natural persons, family-scale governance, multi-generational guardianship responsibilities, and unconditional safe exits with standard W3C RDF export.</p>
+        </article>
+        <article>
+          <h3>Pluggable Graph Engines &amp; CKAN</h3>
+          <p>Modular query infrastructure supporting in-process Oxigraph for SPARQL 1.1 querying, Web Civics Qualia for symbolic decision evidence, and automated CKAN open data publication.</p>
+        </article>
+      </div>
+      <p style="margin-top:1.5rem;"><a class="text-link" href="./capabilities/">Full capability catalogue <span aria-hidden="true">→</span></a> · <a class="text-link" href="./architecture/">System architecture blueprint <span aria-hidden="true">→</span></a></p>
+    </section>
+
+    <section class="content-section soft-section" aria-labelledby="map-title">
+      <p class="eyebrow">Technical Reference Map</p>
+      <h2 id="map-title">Explore the system documentation.</h2>
+      <nav class="tech-subnav" aria-label="Tech docs sections">
+        <a href="./" aria-current="page">Hub</a>
+        <a href="./architecture/">Architecture</a>
+        <a href="./capabilities/">Capabilities</a>
+        <a href="./provenance/">Provenance</a>
+        <a href="./smithy/">Smithy API</a>
+        <a href="./exchange/">Exchange</a>
+        <a href="./ipms/">IPMS</a>
+        <a href="./ckan/">CKAN bridge</a>
+        <a href="../engines/">Engines</a>
+      </nav>
+      <div class="tech-map">
+        <article>
+          <h3>Architecture</h3>
+          <p>Comprehensive system topology, control vs. data plane separation, opaque resource layouts, and security invariants.</p>
+          <a class="text-link" href="./architecture/">Read Architecture <span aria-hidden="true">→</span></a>
+        </article>
+        <article>
+          <h3>Capabilities Matrix</h3>
+          <p>Detailed breakdown of implemented capabilities across core Solid, Databox extensions, edge runtimes, and business modules.</p>
+          <a class="text-link" href="./capabilities/">View Capabilities <span aria-hidden="true">→</span></a>
+        </article>
+        <article>
+          <h3>Provenance &amp; Lineage</h3>
+          <p>The 25-year history of humanitarian ICT, W3C standards leadership, read-write-web heritage, and fork evolution.</p>
+          <a class="text-link" href="./provenance/">Read Provenance <span aria-hidden="true">→</span></a>
+        </article>
+        <article>
+          <h3>Smithy API Reference</h3>
+          <p>RESTful JSON control plane specification for provisioning programs, forging mappings, and depositing records.</p>
+          <a class="text-link" href="./smithy/">Smithy API Reference <span aria-hidden="true">→</span></a>
+        </article>
+        <article>
+          <h3>Exchange Protocol</h3>
+          <p>Deposit pipelines, cryptographic receipt generation, write-once-read-many (WORM) audit ledgers, and retrieval flows.</p>
+          <a class="text-link" href="./exchange/">Exchange Protocol <span aria-hidden="true">→</span></a>
+        </article>
+        <article>
+          <h3>IPMS Business Suite</h3>
+          <p>Modular business operating system: 60+ industry modules, vertical profiles, WASM/PWA mobile apps, and native edge runtimes.</p>
+          <a class="text-link" href="./ipms/">Explore IPMS <span aria-hidden="true">→</span></a>
+        </article>
+        <article>
+          <h3>CKAN Open Data Bridge</h3>
+          <p>Automated, privacy-preserving publication of governed civic datasets directly from Databox storage to CKAN portals.</p>
+          <a class="text-link" href="./ckan/">CKAN Bridge Guide <span aria-hidden="true">→</span></a>
+        </article>
+        <article>
+          <h3>Engine Comparison</h3>
+          <p>In-depth architectural analysis comparing Oxigraph (SPARQL 1.1) and Web Civics Qualia (deterministic symbolic AI).</p>
+          <a class="text-link" href="../engines/">Compare Engines <span aria-hidden="true">→</span></a>
+        </article>
+      </div>
+    </section>
+
+    <section class="content-section soft-section" aria-labelledby="carry-title">
+      <p class="eyebrow">Web-Server Foundation &amp; Enhancements</p>
+      <h2 id="carry-title">Building on the open web commons.</h2>
+      <div class="two-column">
+        <div>
+          <h3>Authored by Web Civics</h3>
+          <ul class="check-list">
+            <li>Relationship Databox Model and opaque bilateral resource containers</li>
+            <li>Mapping Smithy control plane and declarative schema transformation engine</li>
+            <li>Exact-byte verifiable commit pipeline and signed cryptographic receipts</li>
+            <li>ODRL policy engine, duties enforcement, and automated review dispositions</li>
+            <li>IPMS modular enterprise suite (60+ modules) and native Rust POS edge</li>
+            <li>Personal Databox Vault with household governance and verified safe-exit exports</li>
+            <li>CKAN open-data bridge and pluggable Oxigraph / Qualia engine integrations</li>
+            <li>Upgraded runtime targeting modern LTS <strong>Node&nbsp;≥&nbsp;24</strong></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Inherited Open Standards</h3>
+          <ul class="check-list">
+            <li>W3C Solid HTTP, Linked Data Platform (LDP), and Solid-OIDC authentication</li>
+            <li>Web Access Control (WAC) and Access Control Policies (ACP) request routing</li>
+            <li>Components.js modular dependency injection framework</li>
+            <li>Foundational Community Solid Server (CSS) storage backends</li>
+          </ul>
+          <p style="margin-top:1.5rem;"><a class="text-link" href="./provenance/">Explore full provenance and lineage <span aria-hidden="true">→</span></a></p>
+        </div>
+      </div>
+    </section>
+
+    <section id="industry" class="content-section" aria-labelledby="industry-title">
+      <p class="eyebrow">Real-World Deployments</p>
+      <h2 id="industry-title">Bilateral data exchange across industries.</h2>
+      <p class="section-intro">Explore governed bilateral data exchange patterns across healthcare, education, retail, agriculture, and municipal services.</p>
+      <div class="tabs" id="category-tabs" style="display:flex;flex-wrap:wrap;margin-top:2rem;"></div>
+      <div id="use-cases-grid" class="record-grid" aria-live="polite">
+        <p style="color:var(--text-secondary);">Loading industry applications…</p>
+      </div>
+    </section>
+
+    <section class="content-section soft-section" aria-labelledby="try-title">
+      <p class="eyebrow">Interactive Sandboxes</p>
+      <h2 id="try-title">Explore live demonstrations and code.</h2>
+      <div class="audience-grid">
+        <article>
+          <h3>Smithy Admin Console</h3>
+          <p>Interactive Refine/React administrative console managing programs, bilateral mappings, event streams, and rights policies.</p>
+          <a class="text-link" href="../admin/">Launch Admin Demo <span aria-hidden="true">→</span></a>
+        </article>
+        <article>
+          <h3>Interactive Smithy Demo</h3>
+          <p>Step-by-step walkthrough demonstrating how an organisation provisions a service, maps data, and deposits verifiable records.</p>
+          <a class="text-link" href="../smithy/">Launch Smithy Demo <span aria-hidden="true">→</span></a>
+        </article>
+        <article>
+          <h3>Engine Comparison Guide</h3>
+          <p>Side-by-side analysis of Oxigraph and Qualia: performance benchmarks, formal logic capabilities, and licensing models.</p>
+          <a class="text-link" href="../engines/">Compare Engines <span aria-hidden="true">→</span></a>
+        </article>
+        <article>
+          <h3>GitHub Source Repository</h3>
+          <p>Browse full source code, architecture decision records (ADRs), deployment configs, and comprehensive test suites.</p>
+          <a class="text-link" href="https://github.com/WebCivics/WebCivics-Databox">View on GitHub <span aria-hidden="true">↗</span></a>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p><strong>Web Civics Databox</strong> &middot; Human-centric civic infrastructure built on open web standards.</p>
+    <p><a href="../">Home</a> · <a href="./">Tech Docs</a> · <a href="../engines/">Engines</a> · <a href="../smithy/">Demo</a></p>
+  </footer>
+
+  <script>
+    let allUseCases = [];
+
+    async function loadUseCases() {
+      try {
+        const res = await fetch('../assets/scripts/use-cases.json');
+        allUseCases = await res.json();
+        const categories = [...new Set(allUseCases.map((uc) => uc.category))];
+        const tabs = document.getElementById('category-tabs');
+        tabs.innerHTML = '<button type="button" class="tab-btn category-tab active" data-category="All">All</button>';
+        for (const cat of categories) {
+          tabs.innerHTML += `<button type="button" class="tab-btn category-tab" data-category="${cat}">${cat}</button>`;
+        }
+        tabs.addEventListener('click', (event) => {
+          const btn = event.target.closest('[data-category]');
+          if (!btn) return;
+          filterUseCases(btn.dataset.category);
+        });
+        filterUseCases('All');
+      } catch {
+        document.getElementById('use-cases-grid').innerHTML =
+          '<p style="color:var(--text-accent);">Could not load industry applications.</p>';
+      }
+    }
+
+    function filterUseCases(category) {
+      document.querySelectorAll('.category-tab').forEach((btn) => {
+        btn.classList.toggle('active', btn.dataset.category === category);
+      });
+      const filtered = category === 'All'
+        ? allUseCases
+        : allUseCases.filter((uc) => uc.category === category);
+      const grid = document.getElementById('use-cases-grid');
+      grid.innerHTML = filtered.map((uc) => `
+        <article class="use-case-card">
+          <span class="uc-cat">${uc.category}</span>
+          <h3>${uc.title}</h3>
+          <p>${uc.description}</p>
+        </article>
+      `).join('');
+    }
+
+    loadUseCases();
+  </script>
+</body>
+</html>

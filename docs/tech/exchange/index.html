@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Databox exchange pipeline: deposits, signed receipts, append-only evidence, corrections and notify-then-pull retrieval.">
+  <meta name="theme-color" content="#1c4066">
+  <title>Exchange | Web Civics Databox tech docs</title>
+  <link rel="canonical" href="https://www.civics.au/tech/exchange/">
+  <link rel="icon" href="../../assets/images/webcivics-mark.jpg" type="image/jpeg">
+  <link rel="stylesheet" href="../../assets/styles/main.css">
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to the main content</a>
+  <header class="site-header">
+    <div class="header-brand-group">
+      <a class="brand" href="../../" aria-label="Web Civics Databox home">
+        <img src="../../assets/images/webcivics-mark.jpg" alt="Web Civics mark">
+        <span>Web Civics Databox</span>
+      </a>
+      <a class="worksite-link" href="https://www.civics.au/in-development.html" target="_blank" rel="noopener noreferrer" title="In development: this site and its contents are being developed and contain errors.">
+        <img src="../../assets/images/worksite.svg" alt="Worksite hazard symbol" class="worksite-img" width="20" height="20">
+        <span class="worksite-badge">IN DEVELOPMENT</span>
+        <span class="worksite-note">Site &amp; contents contain errors</span>
+      </a>
+    </div>
+    <nav class="site-nav" aria-label="Main navigation">
+      <a href="../../">Plain-language guide</a>
+      <a href="../">Tech docs</a>
+      <a href="../capabilities/">Capabilities</a>
+      <a href="../provenance/">Provenance</a>
+      <a href="https://github.com/WebCivics/WebCivics-Databox">Source</a>
+    </nav>
+  </header>
+
+  <main id="main-content">
+    <section class="welcome tech-welcome" aria-labelledby="ex-title">
+      <div>
+        <p class="eyebrow">Data plane</p>
+        <h1 id="ex-title">Records, receipts and evidence.</h1>
+        <p class="lead">After the Smithy accepts a source event, the deposit gateway commits exact accepted bytes, signs a receipt and appends evidence. Changes never silently overwrite history.</p>
+        <nav class="tech-subnav" aria-label="Tech docs sections">
+          <a href="../">Hub</a>
+          <a href="../architecture/">Architecture</a>
+          <a href="../capabilities/">Capabilities</a>
+          <a href="../provenance/">Provenance</a>
+          <a href="../smithy/">Smithy API</a>
+          <a href="./" aria-current="page">Exchange</a>
+          <a href="../ipms/">IPMS</a>
+          <a href="../ckan/">CKAN bridge</a>
+        </nav>
+      </div>
+      <aside class="welcome-note" aria-label="Direction of flow">
+        <p class="note-label">Two directions</p>
+        <p><strong>Records</strong> flow organisation → person. <strong>Submissions</strong> flow person → organisation as explicit disclosures — never as organisation-initiated reads of personal storage.</p>
+      </aside>
+    </section>
+
+    <section class="content-section" aria-labelledby="pipeline-title">
+      <p class="eyebrow">Deposit pipeline</p>
+      <h2 id="pipeline-title">Fail closed at every step.</h2>
+      <ol class="flow-diagram" aria-label="Seven-step deposit pipeline" style="grid-template-columns:repeat(auto-fit,minmax(140px,1fr));">
+        <li><span class="flow-number">1</span><h3>Idempotency</h3><p>Replayed <code>sourceEventId</code> is rejected, not double-committed.</p></li>
+        <li><span class="flow-number">2</span><h3>Bounds</h3><p>Payloads capped (1&nbsp;MB) and constrained to allowed media types.</p></li>
+        <li><span class="flow-number">3</span><h3>Quarantine</h3><p>Binary evidence passes a fail-closed scanner before acceptance.</p></li>
+        <li><span class="flow-number">4</span><h3>Class checks</h3><p><code>recordClass</code>, <code>legalBasis</code> and <code>purpose</code> must be declared.</p></li>
+        <li><span class="flow-number">5</span><h3>Commit</h3><p>Exact accepted bytes stored at an opaque <code>acceptedResource</code> URL.</p></li>
+        <li><span class="flow-number">6</span><h3>Receipt</h3><p>ES256 JWS acceptance receipt returned in the deposit report.</p></li>
+        <li><span class="flow-number">7</span><h3>Evidence</h3><p>Exchange recorded in the append-only evidence ledger.</p></li>
+      </ol>
+    </section>
+
+    <section class="content-section soft-section" aria-labelledby="immut-title">
+      <p class="eyebrow">Immutability</p>
+      <h2 id="immut-title">Append-only, supersede, tombstone.</h2>
+      <div class="audience-grid">
+        <article>
+          <h3>Supersede</h3>
+          <p>A new version links back to the prior record so history remains inspectable.</p>
+        </article>
+        <article>
+          <h3>Tombstone</h3>
+          <p>A record is retired with an auditable marker rather than a silent delete.</p>
+        </article>
+        <article>
+          <h3>Crypto-erase</h3>
+          <p>Where permitted by retention policy: retained-then-unrecoverable deletion.</p>
+        </article>
+        <article>
+          <h3>Durable ledger</h3>
+          <p>Recent work adds DurableEvidenceLedger and WORM storage audit ledger paths for stronger retention guarantees.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="content-section" aria-labelledby="access-title">
+      <p class="eyebrow">Access &amp; retrieval</p>
+      <h2 id="access-title">Assurance-gated notify-then-pull.</h2>
+      <div class="two-column">
+        <div>
+          <h3>Assurance</h3>
+          <p>Record sensitivity is enforced against the assurance of the current authentication — identity proofing, authenticator strength, freshness — not merely account ownership. A profile may require step-up before payload access, and may suppress existence where an exception requires it.</p>
+        </div>
+        <div>
+          <h3>Notify-then-pull</h3>
+          <p>The program deposits a record; the Databox sends a minimal notification; the person’s agent authenticates and pulls the record into storage of their own choosing. Organisation credentials never become authority to browse the consumer Pod.</p>
+        </div>
+      </div>
+      <div class="callout">
+        <h3>Corrections &amp; dispositions</h3>
+        <p>Consumer-initiated corrections and contested records go through governed review. Signed dispositions (corrected, statement-associated, partially-corrected, denied, …) remain linked to the evidence chain. Where CKAN publication is enabled, dispositions can propagate to the open-data portal.</p>
+      </div>
+    </section>
+
+    <section class="content-section soft-section" aria-labelledby="next-title">
+      <p class="eyebrow">Related</p>
+      <h2 id="next-title">Policy, Smithy and deep guides.</h2>
+      <div class="button-row">
+        <a class="action-btn" href="../smithy/">Smithy API</a>
+        <a class="text-link" href="https://github.com/WebCivics/WebCivics-Databox/blob/main/databox/guide/records-receipts-evidence.md">Records &amp; receipts guide <span aria-hidden="true">↗</span></a>
+        <a class="text-link" href="https://github.com/WebCivics/WebCivics-Databox/blob/main/databox/guide/policies-and-odrl.md">Policies &amp; ODRL <span aria-hidden="true">↗</span></a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p><strong>Web Civics Databox</strong> &middot; technical documentation.</p>
+    <p><a href="../">Tech docs hub</a> · <a href="../../">Plain-language guide</a></p>
+  </footer>
+</body>
+</html>

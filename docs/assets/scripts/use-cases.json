@@ -21,7 +21,7 @@
     "category": "Commercial",
     "slug": "clothing-and-footwear",
     "title": "Commercial: Clothing and Footwear Applications",
-    "description": "This vertical focuses on the retail ecosystem for apparel, footwear, and related accessories. Integrating a Solid Databox in this sector allows consumers to maintain a secure, private, and portable profile that deeply enhances their shopping experience while respecting their data sovereignty."
+    "description": "This vertical focuses on the retail ecosystem for apparel, footwear, and related accessories. Integrating a Solid Databox in this sector allows consumers to maintain a secure, private, and portable profile that deeply enhances their shopping experience while respecting their human rights, privacy, and personal data stewardship."
   },
   {
     "category": "Commercial",
@@ -198,15 +198,15 @@
     "description": "State and provincial governments are responsible for managing the core foundational registries of a citizen's life. The Databox architecture enables state agencies to issue highly secure, globally verifiable credentials for identity and ownership. This transforms how states manage Digital Driver's Licenses, Birth/Death/Marriage registries, vehicle registrations, and Land Titles. Instead of maintaining fragmented, vulnerable central databases, the state issues cryptographically verifiable claims directly to a citizen's Databox. This allows citizens to seamlessly prove their identity, age, or property ownership across state borders or to private entities with complete privacy-preserving consent mechanisms."
   },
   {
-    "category": "Sovereignty",
+    "category": "Human Rights & Guardianship",
     "slug": "personal-mobile-pod",
-    "title": "Sovereignty: The Personal Mobile Pod",
-    "description": "A person can run their entire databox on hardware they own — a laptop, a home server, or a phone as an installed PWA with WASM. The pod lives in persistent local storage, reachable through a cooperative or Cloudflare tunnel even behind a router, and its contents are protected by an owner-key-encrypted continuity snapshot: if the OS evicts the store or the device is lost, the pod is recovered from ciphertext the backup cooperative can't read. The person is the data's home — not a platform's account."
+    "title": "Personal Autonomy: The Personal Mobile Pod",
+    "description": "A person can run their entire databox on hardware they own — a laptop, a home server, or a phone as an installed PWA with WASM. The pod lives in persistent local storage, reachable through a cooperative or Cloudflare tunnel even behind a router, and its contents are protected by an owner-key-encrypted continuity snapshot: if the OS evicts the store or the device is lost, the pod is recovered from ciphertext the backup cooperative can't read. The natural person is the data's home — not a platform's account."
   },
   {
-    "category": "Sovereignty",
+    "category": "Human Rights & Guardianship",
     "slug": "household-guardianship",
-    "title": "Sovereignty: Household Custody & Guardianship",
+    "title": "Human Capacity: Household Custody & Guardianship",
     "description": "A household databox holds shared data under declared custody — a family, a share-house, a supported-living arrangement. Guardianship is a deterministic boundary: a parent's or guardian's reach over a child or supported person is scoped, household-limited, and time-bounded, enforced by the policy engine rather than a convenience flag. Capacity-scaled delegation lets a maturing child take more as they grow, and a digital estate fires a person's standing instructions only when a quorum of named attestors confirm."
   },
   {

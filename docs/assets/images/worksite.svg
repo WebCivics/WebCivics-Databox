@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" role="img" aria-label="Worksite in development">
+  <defs>
+    <pattern id="worksite-stripes" width="8" height="8" patternTransform="rotate(45)" patternUnits="userSpaceOnUse">
+      <rect width="4" height="8" fill="#e8930c" />
+      <rect x="4" width="4" height="8" fill="#1c2d3e" />
+    </pattern>
+  </defs>
+
+  <!-- Left A-frame leg -->
+  <line x1="7" y1="12" x2="3" y2="29" stroke="#475569" stroke-width="2.2" stroke-linecap="round"/>
+  <line x1="5" y1="23" x2="8" y2="23" stroke="#475569" stroke-width="1.8" stroke-linecap="round"/>
+
+  <!-- Right A-frame leg -->
+  <line x1="25" y1="12" x2="29" y2="29" stroke="#475569" stroke-width="2.2" stroke-linecap="round"/>
+  <line x1="24" y1="23" x2="27" y2="23" stroke="#475569" stroke-width="1.8" stroke-linecap="round"/>
+
+  <!-- Flashing hazard light (left) -->
+  <circle cx="7" cy="7" r="3.2" fill="#d97706" />
+  <circle cx="7" cy="7" r="1.8" fill="#fef08a" />
+  <rect x="5.5" y="9.5" width="3" height="3" fill="#1e293b" rx="0.5"/>
+
+  <!-- Flashing hazard light (right) -->
+  <circle cx="25" cy="7" r="3.2" fill="#d97706" />
+  <circle cx="25" cy="7" r="1.8" fill="#fef08a" />
+  <rect x="23.5" y="9.5" width="3" height="3" fill="#1e293b" rx="0.5"/>
+
+  <!-- Top Barricade Rail with Hazard Stripes -->
+  <rect x="2" y="12" width="28" height="7.5" rx="1.5" fill="url(#worksite-stripes)" stroke="#0f172a" stroke-width="1.2"/>
+
+  <!-- Bottom Barricade Rail with Hazard Stripes -->
+  <rect x="2" y="21" width="28" height="6.5" rx="1.2" fill="url(#worksite-stripes)" stroke="#0f172a" stroke-width="1.2"/>
+</svg>

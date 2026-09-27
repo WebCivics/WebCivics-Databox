@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Opt-in CKAN Bridge: publish governed Solid Pod data to CKAN with Solid-OIDC, SHACL, reconciliation and correction propagation.">
+  <meta name="theme-color" content="#1c4066">
+  <title>CKAN Bridge | Web Civics Databox tech docs</title>
+  <link rel="canonical" href="https://www.civics.au/tech/ckan/">
+  <link rel="icon" href="../../assets/images/webcivics-mark.jpg" type="image/jpeg">
+  <link rel="stylesheet" href="../../assets/styles/main.css">
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to the main content</a>
+  <header class="site-header">
+    <div class="header-brand-group">
+      <a class="brand" href="../../" aria-label="Web Civics Databox home">
+        <img src="../../assets/images/webcivics-mark.jpg" alt="Web Civics mark">
+        <span>Web Civics Databox</span>
+      </a>
+      <a class="worksite-link" href="https://www.civics.au/in-development.html" target="_blank" rel="noopener noreferrer" title="In development: this site and its contents are being developed and contain errors.">
+        <img src="../../assets/images/worksite.svg" alt="Worksite hazard symbol" class="worksite-img" width="20" height="20">
+        <span class="worksite-badge">IN DEVELOPMENT</span>
+        <span class="worksite-note">Site &amp; contents contain errors</span>
+      </a>
+    </div>
+    <nav class="site-nav" aria-label="Main navigation">
+      <a href="../../">Plain-language guide</a>
+      <a href="../">Tech docs</a>
+      <a href="../capabilities/">Capabilities</a>
+      <a href="../exchange/">Exchange</a>
+      <a href="https://github.com/WebCivics/WebCivics-Databox">Source</a>
+    </nav>
+  </header>
+
+  <main id="main-content">
+    <section class="welcome tech-welcome" aria-labelledby="ckan-title">
+      <div>
+        <p class="eyebrow">Open-data integration</p>
+        <h1 id="ckan-title">CKAN Bridge — opt-in Pod→portal publication.</h1>
+        <p class="lead">A decoupled microservice between the Solid Databox and a CKAN data portal. It lets agencies publish governed Pod data while preserving the natural person’s agency over personal information.</p>
+        <div class="status-row"><span class="status-pill">New</span><span class="status-pill updated">Opt-in profile</span></div>
+        <nav class="tech-subnav" aria-label="Tech docs sections">
+          <a href="../">Hub</a>
+          <a href="../architecture/">Architecture</a>
+          <a href="../capabilities/">Capabilities</a>
+          <a href="../provenance/">Provenance</a>
+          <a href="../smithy/">Smithy API</a>
+          <a href="../exchange/">Exchange</a>
+          <a href="../ipms/">IPMS</a>
+          <a href="./" aria-current="page">CKAN bridge</a>
+        </nav>
+      </div>
+      <aside class="welcome-note" aria-label="Opt-in warning">
+        <p class="note-label">Not required</p>
+        <p>This bridge is an optional deployment profile. Ordinary Databox installs do not need CKAN, and the thin CKAN plugin does nothing until explicitly enabled.</p>
+      </aside>
+    </section>
+
+    <section class="content-section" aria-labelledby="flow-title">
+      <p class="eyebrow">Pipeline</p>
+      <h2 id="flow-title">Read → validate → translate → publish → reconcile.</h2>
+      <pre class="ascii-diagram" aria-label="CKAN bridge topology">Solid Pod layer          CKAN Bridge              CKAN registry
+(Solid-OIDC / DPoP) -->  SHACL + RDF→tabular  -->  Action API
+                         webhook / HMAC           datastore upsert
+                         reconciliation           metadata fields
+                         correction propagate</pre>
+      <div class="audience-grid">
+        <article>
+          <h3>Solid-OIDC client</h3>
+          <p>DPoP-bound access tokens for reading Pods; short-lived, cached, fail-closed on expiry.</p>
+        </article>
+        <article>
+          <h3>SHACL validator</h3>
+          <p>Fail-closed validation before any data reaches CKAN; non-compliant payloads are quarantined.</p>
+        </article>
+        <article>
+          <h3>RDF→tabular translator</h3>
+          <p>Program-profile-driven field mapping with PII anonymisation (strip, hash, generalise) and evidence recording.</p>
+        </article>
+        <article>
+          <h3>Publication pipeline</h3>
+          <p>Idempotent via <code>sha256(podIri:contentDigest)</code>; bounded retries with quarantine on max-retries-exceeded.</p>
+        </article>
+        <article>
+          <h3>Webhook handler</h3>
+          <p>HMAC-SHA256 signature verification, idempotent event deduplication for dataset lifecycle events.</p>
+        </article>
+        <article>
+          <h3>Reconciliation &amp; corrections</h3>
+          <p>Periodic sweeps detect editor drift and orphaned datasets; Databox dispositions propagate back into CKAN.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="content-section soft-section" aria-labelledby="plugin-title">
+      <p class="eyebrow">CKAN plugin</p>
+      <h2 id="plugin-title">Thin plugin, heavy lifting in the bridge.</h2>
+      <div class="two-column">
+        <div>
+          <h3>What the plugin does</h3>
+          <ul class="check-list">
+            <li>Emits webhooks on dataset created / updated / deleted / datastore changes</li>
+            <li>Exposes Action API endpoints for status synchronisation</li>
+            <li>Adds Databox metadata fields (provenance, policy, SHACL shape, consent receipt IRIs)</li>
+            <li>Restricts write access to the bridge service token; public users stay read-only</li>
+          </ul>
+        </div>
+        <div>
+          <h3>What it deliberately does not do</h3>
+          <ul class="check-list">
+            <li>No Solid authentication or RDF parsing inside CKAN</li>
+            <li>No SHACL validation in the plugin process</li>
+            <li>No direct database manipulation</li>
+            <li>No change to CKAN defaults until <code>databox_bridge</code> is enabled</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section" aria-labelledby="next-title">
+      <p class="eyebrow">Related</p>
+      <h2 id="next-title">Spec, plan and source.</h2>
+      <div class="button-row">
+        <a class="action-btn" href="../exchange/">Exchange &amp; corrections</a>
+        <a class="text-link" href="https://github.com/WebCivics/WebCivics-Databox/tree/main/ckan-bridge">ckan-bridge source <span aria-hidden="true">↗</span></a>
+        <a class="text-link" href="https://github.com/WebCivics/WebCivics-Databox/blob/main/databox/devdocs/dbx-06-ckan-bridge-specification.md">Bridge specification <span aria-hidden="true">↗</span></a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p><strong>Web Civics Databox</strong> &middot; technical documentation.</p>
+    <p><a href="../">Tech docs hub</a> · <a href="../../">Plain-language guide</a></p>
+  </footer>
+</body>
+</html>

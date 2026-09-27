@@ -22,3 +22,6 @@ coverage_output.txt
 tsconfig.tsbuildinfo
 *.log
 test_output.txt
+
+# Local-only research corpora (W3C list heritage, etc.) — never publish to docs/Pages.
+/local/

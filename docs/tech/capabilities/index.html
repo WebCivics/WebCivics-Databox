@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Capability catalogue for Web Civics Databox: Solid exchange, Smithy, IPMS, CKAN, engines, native components and post-rewrite additions.">
+  <meta name="theme-color" content="#1c4066">
+  <title>Capabilities | Web Civics Databox tech docs</title>
+  <link rel="canonical" href="https://www.civics.au/tech/capabilities/">
+  <link rel="icon" href="../../assets/images/webcivics-mark.jpg" type="image/jpeg">
+  <link rel="stylesheet" href="../../assets/styles/main.css">
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to the main content</a>
+  <header class="site-header">
+    <div class="header-brand-group">
+      <a class="brand" href="../../" aria-label="Web Civics Databox home">
+        <img src="../../assets/images/webcivics-mark.jpg" alt="Web Civics mark">
+        <span>Web Civics Databox</span>
+      </a>
+      <a class="worksite-link" href="https://www.civics.au/in-development.html" target="_blank" rel="noopener noreferrer" title="In development: this site and its contents are being developed and contain errors.">
+        <img src="../../assets/images/worksite.svg" alt="Worksite hazard symbol" class="worksite-img" width="20" height="20">
+        <span class="worksite-badge">IN DEVELOPMENT</span>
+        <span class="worksite-note">Site &amp; contents contain errors</span>
+      </a>
+    </div>
+    <nav class="site-nav" aria-label="Main navigation">
+      <a href="../../">Plain-language guide</a>
+      <a href="../">Tech docs</a>
+      <a href="./" aria-current="page">Capabilities</a>
+      <a href="../../engines/">Engines</a>
+      <a href="https://github.com/WebCivics/WebCivics-Databox">Source</a>
+    </nav>
+  </header>
+
+  <main id="main-content">
+    <section class="welcome tech-welcome" aria-labelledby="cap-title">
+      <div>
+        <p class="eyebrow">Capabilities</p>
+        <h1 id="cap-title">What Web Civics Databox implements.</h1>
+        <p class="lead">Capability catalogue for this project’s work: relationship Databoxes, Smithy, exchange, IPMS, personal vault, CKAN, engines. Solid interop is retained from the open CSS-era starting point; the Databox behaviours below are Web Civics additions and updates. Runtime: Node&nbsp;≥&nbsp;24 (fork era commonly Node&nbsp;20, now EOL).</p>
+        <div class="status-row" aria-label="Legend">
+          <span class="status-pill prior">Prior in this project</span>
+          <span class="status-pill updated">Updated / renamed</span>
+          <span class="status-pill">Newer wave</span>
+        </div>
+        <nav class="tech-subnav" aria-label="Tech docs sections">
+          <a href="../">Hub</a>
+          <a href="../architecture/">Architecture</a>
+          <a href="./" aria-current="page">Capabilities</a>
+          <a href="../provenance/">Provenance</a>
+          <a href="../smithy/">Smithy API</a>
+          <a href="../exchange/">Exchange</a>
+          <a href="../ipms/">IPMS</a>
+          <a href="../ckan/">CKAN bridge</a>
+        </nav>
+      </div>
+      <aside class="welcome-note" aria-label="Reading tip">
+        <p class="note-label">How to read this</p>
+        <p>Tags mark evolution <strong>inside this Databox project</strong>. Upstream Solid/CSS work is credited with respect — see <a href="../provenance/" style="color:#f6d78f">provenance</a>.</p>
+      </aside>
+    </section>
+
+    <section class="content-section" aria-labelledby="core-title">
+      <p class="eyebrow">Core Solid Databox</p>
+      <h2 id="core-title">Relationship-specific Solid data spaces.</h2>
+      <div class="audience-grid">
+        <article>
+          <div class="status-row"><span class="status-pill prior">Prior</span></div>
+          <h3>Opaque provisioning</h3>
+          <p>Program-scoped Databox URLs without customer identifiers in paths; separate security boundaries per organisation program and consumer relationship.</p>
+        </article>
+        <article>
+          <div class="status-row"><span class="status-pill prior">Prior in this project</span></div>
+          <h3>Solid interop path</h3>
+          <p>Uses Solid HTTP, LDP, Solid-OIDC and WAC so compatible clients work — continued from the open CSS-era stack and composed with Databox authorisation and store integration.</p>
+        </article>
+        <article>
+          <div class="status-row"><span class="status-pill updated">Updated</span></div>
+          <h3>Mapping Smithy</h3>
+          <p>Formerly Mapping Forge. Registers Institution Profiles, forges opaque mappings, issues holder-bound rotatable connection credentials.</p>
+        </article>
+        <article>
+          <div class="status-row"><span class="status-pill prior">Prior</span></div>
+          <h3>Two-way governed exchange</h3>
+          <p>Bilateral exchange of signed digital receipts, attestations, and personal records; deliberate consumer submissions in; append-only evidence, supersession links, and disposition state.</p>
+        </article>
+        <article>
+          <div class="status-row"><span class="status-pill prior">Prior</span></div>
+          <h3>Policy, ODRL &amp; evidence</h3>
+          <p>Record-class, purpose, legal-basis and assurance checks; versioned ODRL permissions/prohibitions/duties; signed receipts and review workflows.</p>
+        </article>
+        <article>
+          <div class="status-row"><span class="status-pill">New</span></div>
+          <h3>Durable registries &amp; WORM ledger</h3>
+          <p>RelationshipMapping, TenantBinding, SourceOutbox registries plus DurableEvidenceLedger and WORM storage audit ledger.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="content-section soft-section" aria-labelledby="personal-title">
+      <p class="eyebrow">Personal Databox Profile</p>
+      <h2 id="personal-title">Person-side vault capabilities (CIV-A01…A14).</h2>
+      <p class="section-intro">Added after the civics rewrite: bridging personal data safes and organisation operational systems so natural persons and small businesses can exchange records directly.</p>
+      <div class="audience-grid">
+        <article><div class="status-row"><span class="status-pill">New</span></div><h3>Personal vault</h3><p>Personal Databox Profile for an individual’s own machine, mobile device or hosted vault.</p></article>
+        <article><div class="status-row"><span class="status-pill">New</span></div><h3>Hosting &amp; DNS</h3><p>Hosting API and DNS clients for bringing a personal or organisation presence online.</p></article>
+        <article><div class="status-row"><span class="status-pill">New</span></div><h3>Household governance</h3><p>Explicit, limited, reviewable arrangements for shared household records and support roles.</p></article>
+        <article><div class="status-row"><span class="status-pill">New</span></div><h3>Pod continuity &amp; safe exit</h3><p>Continuity controls and a safe-exit / deadman-switch path so people are not trapped in a failed host.</p></article>
+      </div>
+    </section>
+
+    <section class="content-section" aria-labelledby="ops-title">
+      <p class="eyebrow">Operator &amp; industry surfaces</p>
+      <h2 id="ops-title">Smithy Admin, IPMS, mobile apps and native edge.</h2>
+      <p class="section-intro">Advancing Solid beyond personal silos: the full operational software stack enabling small businesses and organisations to issue signed digital receipts, manage commercial workflows, and exchange records with natural persons.</p>
+      <div class="two-column">
+        <div>
+          <h3>Operator consoles <span class="status-pill prior" style="margin-left:0.5rem;">Prior</span></h3>
+          <ul class="check-list">
+            <li>Smithy Admin (Refine/React) for programs, mappings, events, rights taxonomy and corrections</li>
+            <li>Embedded <code>/smithy</code> Programs / Mappings / Events UI</li>
+            <li>Backendless Pages demo with synthetic data only</li>
+            <li>Consumer rights workflows: access and correction requests (ADR-0023)</li>
+          </ul>
+        </div>
+        <div>
+          <h3>IPMS &amp; org apps <span class="status-pill prior" style="margin-left:0.5rem;">Prior</span></h3>
+          <ul class="check-list">
+            <li>60+ industry modules with enable/disable and capability declarations</li>
+            <li>Vertical profiles (restaurant, welfare, retail, loyalty, print, trade, …)</li>
+            <li>WASM/PWA container with waiter, driver, tradie, print, scorekeeper, referee profiles</li>
+            <li>Per-install VC licence binding app, org, device, scope and permissions</li>
+          </ul>
+        </div>
+      </div>
+      <div class="two-column" style="margin-top:2rem;">
+        <div>
+          <h3>Native / Rust <span class="status-pill prior" style="margin-left:0.5rem;">Prior</span></h3>
+          <ul class="check-list">
+            <li>POS Edge — ESC/POS, cash drawer, QR, local HTTP, IPC</li>
+            <li>Cross-platform installer with checksum-verified Node runtime</li>
+            <li>Tray supervisor, POS edge proxy, connector sidecar (ODBC/LDAP → RDF)</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Optional engines <span class="status-pill">New</span></h3>
+          <ul class="check-list">
+            <li>Oxigraph in-process RDF/SPARQL module</li>
+            <li>Qualia WASM decision-evidence / migration bridge (licence-bounded)</li>
+            <li>Accepted records remain portable Solid RDF either way</li>
+          </ul>
+          <p style="margin-top:1rem;"><a class="text-link" href="../../engines/">Compare engines <span aria-hidden="true">→</span></a></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section soft-section" aria-labelledby="ckan-title">
+      <p class="eyebrow">Open data</p>
+      <h2 id="ckan-title">CKAN Bridge — opt-in Pod→portal publication.</h2>
+      <p class="section-intro">An optional microservice for agencies that already run CKAN. It is not required for ordinary Databox deployments.</p>
+      <div class="audience-grid">
+        <article><div class="status-row"><span class="status-pill">New</span></div><h3>Solid-OIDC read path</h3><p>DPoP-bound access tokens; short-lived, cached, fail-closed on expiry.</p></article>
+        <article><div class="status-row"><span class="status-pill">New</span></div><h3>SHACL then publish</h3><p>Fail-closed validation before any data reaches CKAN; non-compliant data is quarantined.</p></article>
+        <article><div class="status-row"><span class="status-pill">New</span></div><h3>Reconciliation</h3><p>Periodic sweeps detect editor-originated drift and orphaned CKAN datasets.</p></article>
+        <article><div class="status-row"><span class="status-pill">New</span></div><h3>Correction propagation</h3><p>Databox review dispositions propagate into CKAN metadata and datastore updates.</p></article>
+      </div>
+      <p style="margin-top:1.5rem;"><a class="text-link" href="../ckan/">Full CKAN bridge page <span aria-hidden="true">→</span></a></p>
+    </section>
+
+    <section class="content-section" aria-labelledby="assurance-title">
+      <p class="eyebrow">Assurance</p>
+      <h2 id="assurance-title">Testing, deployment and compliance decision support.</h2>
+      <div class="two-column">
+        <div class="plain-box">
+          <h3>Testing <span class="status-pill prior">Prior</span></h3>
+          <ul class="check-list">
+            <li>Unit coverage across Databox subsystems (agent, authZ, bridge, IPMS, evidence, ODRL, …)</li>
+            <li>Integration tests for live CSS / OIDC / WAC and IPMS paths</li>
+            <li>Fail-closed stubs verified — no stub silently permits access</li>
+            <li>Adversarial and conformance suites expanded in recent waves</li>
+          </ul>
+        </div>
+        <div class="plain-box">
+          <h3>Deployment &amp; compliance <span class="status-pill prior">Prior</span></h3>
+          <ul class="check-list">
+            <li>Docker Compose and Kubernetes manifests under <code>databox/deployment/ipms/</code></li>
+            <li>Live CSS Components.js preset for demonstration</li>
+            <li>Compliance decision support mapped to pinned legislation/human-rights sources — does not self-certify</li>
+            <li>i18n surface historically showcased for multi-language operator use</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section soft-section" aria-labelledby="next-title">
+      <p class="eyebrow">Go deeper</p>
+      <h2 id="next-title">From catalogue to interfaces.</h2>
+      <div class="button-row">
+        <a class="action-btn" href="../architecture/">Architecture</a>
+        <a class="text-link" href="../smithy/">Smithy API <span aria-hidden="true">→</span></a>
+        <a class="text-link" href="../ipms/">IPMS modules <span aria-hidden="true">→</span></a>
+        <a class="text-link" href="https://github.com/WebCivics/WebCivics-Databox/blob/main/databox/functionality-audit.md">Functionality audit <span aria-hidden="true">↗</span></a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p><strong>Web Civics Databox</strong> &middot; technical documentation.</p>
+    <p><a href="../">Tech docs hub</a> · <a href="../../">Plain-language guide</a></p>
+  </footer>
+</body>
+</html>

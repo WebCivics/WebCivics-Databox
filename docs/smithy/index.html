@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="A safe, made-up demonstration of the organisation set-up side of Web Civics Databox.">
-  <title>Organisation set-up demonstration | Web Civics Databox</title>
+  <meta name="description" content="Interactive sandbox demonstrating the Web Civics Databox Mapping Smithy workflow: Institution Profiles, bilateral relationship mappings, and verifiable receipts.">
+  <title>Smithy Workflow Sandbox | Web Civics Databox</title>
   <link rel="stylesheet" href="../assets/styles/main.css">
   <style>
     body { display: block; }
@@ -50,76 +50,91 @@
 <body>
   <a class="skip-link" href="#demo-content">Skip to the demonstration</a>
   <header class="demo-header">
-    <strong>Web Civics Databox</strong>
-    <a href="../">&larr; Back to the plain-language guide</a>
+    <div class="header-brand-group">
+      <a class="brand" href="../" aria-label="Web Civics Databox home" style="color:var(--text-primary);text-decoration:none;display:flex;align-items:center;gap:0.75rem;">
+        <img src="../assets/images/webcivics-mark.jpg" alt="Web Civics mark" style="width:2rem;height:2rem;border-radius:0.35rem;">
+        <strong>Web Civics Databox</strong>
+      </a>
+      <a class="worksite-link" href="https://www.civics.au/in-development.html" target="_blank" rel="noopener noreferrer" title="In development: this site and its contents are being developed and contain errors.">
+        <img src="../assets/images/worksite.svg" alt="Worksite hazard symbol" class="worksite-img" width="20" height="20">
+        <span class="worksite-badge">IN DEVELOPMENT</span>
+        <span class="worksite-note">Site &amp; contents contain errors</span>
+      </a>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:1rem;align-items:center;">
+      <a href="../">&larr; Home</a>
+      <a href="../tech/smithy/">Smithy API Docs</a>
+      <a href="../tech/">Tech Docs</a>
+      <a href="../admin/">Admin Console</a>
+    </div>
   </header>
 
   <main id="demo-content" class="demo-main">
     <div class="demo-intro">
-      <p class="eyebrow">Safe learning demonstration</p>
-      <h1>How an organisation could set up a service.</h1>
-      <p>This page is a guided, made-up example. It shows three parts of setting up an information relationship. It does not send information anywhere and it is not connected to a real service.</p>
+      <p class="eyebrow">Interactive Control Plane Sandbox</p>
+      <h1>Provisioning Programs, Mappings &amp; Verifiable Receipts.</h1>
+      <p>Explore how an organisation establishes an Institution Profile, provisions bilateral Relationship Databox connections, and commits verified records with signed cryptographic receipts — simulated directly inside your browser.</p>
     </div>
 
-    <section class="demo-banner" aria-label="Important demonstration notice">
-      <strong>Everything on this page is fictional.</strong>
-      <p>Please do not enter real names, contact details, customer numbers or other personal information. In a real deployment, access would be restricted to authorised staff and governed by the organisation’s privacy, security and records-management processes.</p>
+    <section class="demo-banner" aria-label="Interactive Sandbox Notice">
+      <strong>Client-Side Sandbox Environment</strong>
+      <p>This interactive simulator runs locally in your browser to demonstrate the Mapping Smithy workflow. In production deployments, these operations execute via the authenticated JSON control plane (<code>/.databox/smithy</code>) with fail-closed cryptographic verification, DPoP tokens, and WORM audit logging.</p>
     </section>
 
     <nav class="step-tabs" aria-label="Demonstration steps" role="tablist">
-      <button id="programs-tab" class="nav-btn active" type="button" role="tab" aria-controls="view-programs" aria-selected="true" onclick="switchView('programs', event)">1. Describe the service</button>
-      <button id="mappings-tab" class="nav-btn" type="button" role="tab" aria-controls="view-mappings" aria-selected="false" onclick="switchView('mappings', event)">2. Set up a connection</button>
-      <button id="events-tab" class="nav-btn" type="button" role="tab" aria-controls="view-events" aria-selected="false" onclick="switchView('events', event)">3. Send a record</button>
+      <button id="programs-tab" class="nav-btn active" type="button" role="tab" aria-controls="view-programs" aria-selected="true" onclick="switchView('programs', event)">1. Define Program Profile</button>
+      <button id="mappings-tab" class="nav-btn" type="button" role="tab" aria-controls="view-mappings" aria-selected="false" onclick="switchView('mappings', event)">2. Forge Bilateral Mapping</button>
+      <button id="events-tab" class="nav-btn" type="button" role="tab" aria-controls="view-events" aria-selected="false" onclick="switchView('events', event)">3. Commit Record &amp; Issue Receipt</button>
     </nav>
 
     <section id="view-programs" class="view-section active" role="tabpanel" aria-labelledby="programs-tab">
-      <h2 id="programs-title">1. Describe the service</h2>
-      <p>Before sharing anything, an organisation should define the service and its boundaries: what it is for, what records it uses, and which people are responsible.</p>
-      <div class="explanation"><strong>In the software this is called a “program”.</strong> Think of it as a documented service agreement, not a marketing program. Each program has its own rules and does not automatically give staff access to other programs.</div>
+      <h2 id="programs-title">1. Define Program Profile (Institution Profile)</h2>
+      <p>Before exchanging records, an organisation registers an Institution Profile defining the program's scope, allowed record classes, legal bases, purpose declarations, and retention policies.</p>
+      <div class="explanation"><strong>Architectural role:</strong> The Program Profile establishes declarative constraints. The Databox enforces these rules on every subsequent deposit, rejecting any payload that falls outside the agreed civic or business purpose.</div>
       <table class="data-table">
-        <thead><tr><th scope="col">Example service</th><th scope="col">Plain-language purpose</th><th scope="col">Example record type</th><th scope="col">Status</th></tr></thead>
+        <thead><tr><th scope="col">Registered Program</th><th scope="col">Purpose &amp; Governance Basis</th><th scope="col">Primary Record Class</th><th scope="col">Status</th></tr></thead>
         <tbody id="programs-tbody"></tbody>
       </table>
     </section>
 
     <section id="view-mappings" class="view-section" role="tabpanel" aria-labelledby="mappings-tab" hidden>
-      <h2 id="mappings-title">2. Set up a connection</h2>
-      <p>In a real service, this creates a separate connection between one person and one program. The connection uses an internal reference instead of putting a person’s general identity into every record.</p>
-      <div class="explanation"><strong>Why make connections separate?</strong> A receipt from one service should not automatically reveal a person’s relationship with another service. Keeping connections separate limits unnecessary sharing.</div>
+      <h2 id="mappings-title">2. Forge Bilateral Mapping</h2>
+      <p>When a participant engages with the program, the Mapping Smithy creates an isolated, opaque relationship container. This generates a pair-wise identifier that never leaks internal customer IDs into public URLs.</p>
+      <div class="explanation"><strong>The Relationship Databox boundary:</strong> Keeping each relationship isolated ensures that records from one service can never be correlated across other services without explicit participant consent.</div>
       <form class="form-card" onsubmit="submitMapping(event)">
-        <h3>Try a fictional example</h3>
+        <h3>Forge a Sample Connection</h3>
         <div class="form-grid">
-          <div class="form-group"><label for="map-profileId">Service</label><span class="help">Choose the service this connection belongs to.</span><input id="map-profileId" value="Local library membership" required></div>
-          <div class="form-group"><label for="map-namespace">Internal reference type</label><span class="help">A label only; no real customer number is needed here.</span><input id="map-namespace" value="library member" required></div>
+          <div class="form-group"><label for="map-profileId">Target Program</label><span class="help">Select the active service profile.</span><input id="map-profileId" value="Municipal Library Membership" required></div>
+          <div class="form-group"><label for="map-namespace">Namespace Identifier</label><span class="help">Internal domain scope for the connection.</span><input id="map-namespace" value="library.membership" required></div>
         </div>
-        <div class="form-group"><label for="map-customerId">Fictional member reference</label><span class="help">Use a made-up reference such as DEMO-MEMBER-042.</span><input id="map-customerId" value="DEMO-MEMBER-042" required></div>
-        <div class="form-group"><label for="map-webId">Example personal address</label><span class="help">This is a made-up address used only to illustrate the connection.</span><input id="map-webId" value="https://example-person.invalid/profile" required></div>
-        <button class="action-btn" type="submit">Create a fictional connection</button>
+        <div class="form-group"><label for="map-customerId">Internal Participant ID</label><span class="help">Internal reference (transformed into an opaque hash in the data plane).</span><input id="map-customerId" value="MEMBER-2026-X89" required></div>
+        <div class="form-group"><label for="map-webId">Participant Pairwise WebID</label><span class="help">Natural person identity URI for the participant's vault.</span><input id="map-webId" value="https://vault.civics.au/participant#me" required></div>
+        <button class="action-btn" type="submit">Forge Bilateral Mapping</button>
       </form>
       <div id="mapping-result" class="result hidden" aria-live="polite">
-        <h3>Fictional connection created</h3>
-        <p>This is a sample reference. In a real system, a person would be able to use it to connect their chosen storage with this particular service.</p>
+        <h3>Bilateral Relationship Container Provisioned</h3>
+        <p>An opaque Relationship Databox has been provisioned with holder-bound credentials:</p>
         <div id="mapping-uri" class="code-block"></div>
       </div>
     </section>
 
     <section id="view-events" class="view-section" role="tabpanel" aria-labelledby="events-tab" hidden>
-      <h2 id="events-title">3. Send a record</h2>
-      <p>This example sends a made-up receipt. A real organisation should only send a record when it has a lawful purpose, a clearly communicated reason, and suitable safeguards.</p>
-      <div class="explanation"><strong>What happens after a record is accepted?</strong> The service receives a dated receipt confirming its record was accepted. That receipt helps staff investigate a problem without silently changing history.</div>
+      <h2 id="events-title">3. Commit Record &amp; Issue Receipt</h2>
+      <p>Deposit a verified institutional event. The gateway validates the payload against the profile, immutably commits exact bytes, and issues a tamper-evident cryptographic receipt.</p>
+      <div class="explanation"><strong>Verifiable audit trail:</strong> The participant receives a signed receipt (ES256 JWS) proving the transaction occurred under declared ODRL terms, enabling independent verification without vendor lock-in.</div>
       <form class="form-card" onsubmit="submitEvent(event)">
-        <h3>Try a fictional record</h3>
+        <h3>Commit an Institutional Event</h3>
         <div class="form-grid">
-          <div class="form-group"><label for="ev-type">Type of record</label><input id="ev-type" value="Library borrowing receipt" required></div>
-          <div class="form-group"><label for="ev-class">Record category</label><input id="ev-class" value="Receipt" required></div>
+          <div class="form-group"><label for="ev-type">Event Type</label><input id="ev-type" value="Membership Verification &amp; Annual Clearance" required></div>
+          <div class="form-group"><label for="ev-class">Record Classification</label><input id="ev-class" value="CredentialReceipt" required></div>
         </div>
-        <div class="form-group"><label for="ev-message">Fictional message</label><span class="help">Keep it non-personal. It stays in this browser demonstration only.</span><textarea id="ev-message" rows="4" required>A receipt for a borrowed community-history book.</textarea></div>
-        <button class="action-btn" type="submit">Send the fictional record</button>
+        <div class="form-group"><label for="ev-message">Event Payload / Attestation</label><span class="help">Structured linked data or plain attestation statement.</span><textarea id="ev-message" rows="4" required>Verified active membership in good standing with access to regional civic resources through 2027.</textarea></div>
+        <button class="action-btn" type="submit">Commit Event &amp; Generate Receipt</button>
       </form>
       <div id="event-result" class="result hidden" aria-live="polite">
-        <h3>Fictional record accepted</h3>
-        <p><strong>Status:</strong> <span class="tag">Recorded in this demonstration</span></p>
-        <p><strong>Sample receipt reference:</strong></p>
+        <h3>Event Committed &amp; Signed Receipt Issued</h3>
+        <p><strong>Status:</strong> <span class="tag">Exact-Byte Commit Confirmed (SHA-256)</span></p>
+        <p><strong>Signed Receipt Resource URI:</strong></p>
         <div id="ev-resource" class="code-block"></div>
       </div>
     </section>
@@ -127,8 +142,9 @@
 
   <script>
     const PROGRAMS = [
-      { name: 'Local Library Membership', purpose: 'Keep members’ borrowing and membership records organised.', record: 'Borrowing receipt' },
-      { name: 'Community Garden Project', purpose: 'Record shared plots, contributions and project notices.', record: 'Project notice' }
+      { name: 'Municipal Library & Digital Archive', purpose: 'Manage verified borrowing records and community archive contributions.', record: 'VerifiableBorrowingReceipt' },
+      { name: 'Civic Health & Community Support', purpose: 'Coordinate confidential local care services under strict ODRL privacy duties.', record: 'CarePlanAttestation' },
+      { name: 'Local Business & Producer Co-Op', purpose: 'Manage cooperative membership, equipment registries, and trade manifests.', record: 'SupplyChainReceipt' }
     ];
 
     function switchView(viewId, event) {
@@ -163,7 +179,7 @@
         const status = document.createElement('td');
         const label = document.createElement('span');
         label.className = 'tag';
-        label.textContent = 'Fictional example';
+        label.textContent = 'Active Profile';
         status.appendChild(label);
         row.appendChild(status);
         tableBody.appendChild(row);
@@ -173,16 +189,16 @@
     function submitMapping(event) {
       event.preventDefault();
       const webAddress = document.getElementById('map-webId').value.trim();
-      const reference = 'demo-connection-' + randomReference().toLowerCase();
+      const reference = 'box-' + randomReference().toLowerCase();
       const result = document.getElementById('mapping-result');
-      document.getElementById('mapping-uri').textContent = 'solid-databox://example-connect?address=' + encodeURIComponent(webAddress) + '&connection=' + reference;
+      document.getElementById('mapping-uri').textContent = 'solid-databox://boxes/' + reference + '/records/ (bound to ' + webAddress + ')';
       result.classList.remove('hidden');
     }
 
     function submitEvent(event) {
       event.preventDefault();
-      const reference = 'demo-receipt-' + randomReference().toLowerCase();
-      document.getElementById('ev-resource').textContent = 'https://demo.invalid/records/' + reference;
+      const reference = 'receipt-es256-' + randomReference().toLowerCase();
+      document.getElementById('ev-resource').textContent = 'https://www.civics.au/boxes/demo/receipts/' + reference + '.jsonld';
       document.getElementById('event-result').classList.remove('hidden');
     }
 
